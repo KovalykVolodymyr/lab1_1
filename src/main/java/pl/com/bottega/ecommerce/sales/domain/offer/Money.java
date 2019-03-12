@@ -11,6 +11,10 @@ public class Money {
         this.value = value;
     }
 
+    public Money(){
+
+    }
+
     public String getCurrency() {
         return currency;
     }

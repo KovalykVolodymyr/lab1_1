@@ -24,7 +24,6 @@ public class OfferItem {
 
     private int quantity;
 
-
     public OfferItem(Product product, int quantity, Discount discount, Money money) {
         this.product = product;
         this.quantity = quantity;
@@ -44,6 +43,35 @@ public class OfferItem {
         return quantity;
     }
 
+
+    public Discount getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Discount discount) {
+        this.discount = discount;
+    }
+
+    public Money getMoney() {
+        return money;
+    }
+
+    public void setMoney(Money money) {
+        this.money = money;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -56,62 +84,6 @@ public class OfferItem {
         result = prime * result + quantity;
         result = prime * result + (money.getValue() == null ? 0 : money.getValue().hashCode());
         return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        OfferItem other = (OfferItem) obj;
-        if (discount.getMoney().getValue() == null) {
-            if (other.discount.getMoney().getValue() != null) {
-                return false;
-            }
-        } else if (!discount.getMoney().getValue().equals(other.discount.getMoney().getValue())) {
-            return false;
-        }
-        if (product.getProductName() == null) {
-            if (other.product.getProductName() != null) {
-                return false;
-            }
-        } else if (!product.getProductName().equals(other.product.getProductName())) {
-            return false;
-        }
-        if (product.getMoney().getValue() == null) {
-            if (other.product.getMoney().getValue() != null) {
-                return false;
-            }
-        } else if (!product.getMoney().getValue().equals(other.product.getMoney().getValue())) {
-            return false;
-        }
-        if (product.getProductId() == null) {
-            if (other.product.getProductId() != null) {
-                return false;
-            }
-        } else if (!product.getProductId().equals(other.product.getProductId())) {
-            return false;
-        }
-        if (product.getProductType() != other.product.getProductType()) {
-            return false;
-        }
-        if (quantity != other.quantity) {
-            return false;
-        }
-        if (money.getValue() == null) {
-            if (other.money.getValue() != null) {
-                return false;
-            }
-        } else if (!money.getValue().equals(other.money.getValue())) {
-            return false;
-        }
-        return true;
     }
 
     /**
