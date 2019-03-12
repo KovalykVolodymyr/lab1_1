@@ -24,16 +24,14 @@ public class OfferItem {
         return product;
     }
 
+    private Discount discount;
+
     private BigDecimal totalCost;
 
     private String currency;
 
     private Product product;
 
-    // discount
-    private String discountCause;
-
-    private BigDecimal discount;
 
     public OfferItem(String productId, BigDecimal productPrice, String productName, Date productSnapshotDate,
             String productType, int quantity) {
@@ -45,8 +43,8 @@ public class OfferItem {
         product = new Product(productId, productPrice, productName, productSnapshotDate, productType);
 
         this.quantity = quantity;
-        this.discount = discount;
-        this.discountCause = discountCause;
+
+        this.discount = new Discount(discountCause, discount);
 
         BigDecimal discountValue = new BigDecimal(0);
         if (discount != null) {
@@ -64,12 +62,8 @@ public class OfferItem {
         return currency;
     }
 
-    public BigDecimal getDiscount() {
+    public Discount getDiscount() {
         return discount;
-    }
-
-    public String getDiscountCause() {
-        return discountCause;
     }
 
     public int getQuantity() {
@@ -82,16 +76,12 @@ public class OfferItem {
         if (o == null || getClass() != o.getClass())
             return false;
         OfferItem offerItem = (OfferItem) o;
-        return quantity == offerItem.quantity
-               && Objects.equals(totalCost, offerItem.totalCost)
-               && Objects.equals(currency, offerItem.currency)
-               && Objects.equals(product, offerItem.product)
-               && Objects.equals(discountCause, offerItem.discountCause)
-               && Objects.equals(discount, offerItem.discount);
+        return quantity == offerItem.quantity && Objects.equals(discount, offerItem.discount) && Objects.equals(totalCost,
+                offerItem.totalCost) && Objects.equals(currency, offerItem.currency) && Objects.equals(product, offerItem.product);
     }
 
     @Override public int hashCode() {
-        return Objects.hash(quantity, totalCost, currency, product, discountCause, discount);
+        return Objects.hash(quantity, discount, totalCost, currency, product);
     }
 
     /**
