@@ -14,6 +14,8 @@ public class Product {
 
     private Date productSnapshotDate;
 
+    private Money productPrice;
+
     public String getProductId() {
         return productId;
     }
@@ -35,6 +37,10 @@ public class Product {
 
     public String getProductType() {
         return productType;
+    }
+
+    public Money getProductPrice() {
+        return productPrice;
     }
 
     @Override public boolean equals(Object o) {

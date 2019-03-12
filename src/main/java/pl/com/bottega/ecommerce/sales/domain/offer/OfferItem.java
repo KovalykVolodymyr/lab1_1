@@ -13,35 +13,30 @@
 package pl.com.bottega.ecommerce.sales.domain.offer;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.Objects;
 
 public class OfferItem {
 
     private Product product;
 
-    private BigDecimal productPrice;
+    private Money totalCost;
 
     private int quantity;
-
-    private BigDecimal totalCost;
-
-    private String currency;
 
     // discount
     private String discountCause;
 
     private BigDecimal discount;
 
-    public OfferItem(Product product, BigDecimal productPrice,
+    public OfferItem(Product product, Money totalCost,
              int quantity) {
-        this(product, productPrice,  quantity, null, null);
+        this(product, totalCost, quantity, null, null);
     }
 
-    public OfferItem(Product product, BigDecimal productPrice,
+    public OfferItem(Product product, Money totalCost,
             int quantity, BigDecimal discount, String discountCause) {
         this.product = product;
-        this.productPrice = productPrice;
+        this.totalCost = totalCost;
 
         this.quantity = quantity;
         this.discount = discount;
@@ -52,20 +47,7 @@ public class OfferItem {
             discountValue = discountValue.subtract(discount);
         }
 
-        this.totalCost = productPrice.multiply(new BigDecimal(quantity)).subtract(discountValue);
-    }
-
-
-    public BigDecimal getProductPrice() {
-        return productPrice;
-    }
-
-    public BigDecimal getTotalCost() {
-        return totalCost;
-    }
-
-    public String getTotalCostCurrency() {
-        return currency;
+        totalCost.setProductPrice(totalCost.getProductPrice().multiply(new BigDecimal(quantity)).subtract(discountValue));
     }
 
     public BigDecimal getDiscount() {
@@ -80,7 +62,6 @@ public class OfferItem {
         return quantity;
     }
 
-
     @Override public boolean equals(Object o) {
         if (this == o)
             return true;
@@ -93,11 +74,7 @@ public class OfferItem {
             return false;
         if (!Objects.equals(product, offerItem.product))
             return false;
-        if (!Objects.equals(productPrice, offerItem.productPrice))
-            return false;
         if (!Objects.equals(totalCost, offerItem.totalCost))
-            return false;
-        if (!Objects.equals(currency, offerItem.currency))
             return false;
         if (!Objects.equals(discountCause, offerItem.discountCause))
             return false;
@@ -106,10 +83,8 @@ public class OfferItem {
 
     @Override public int hashCode() {
         int result = product != null ? product.hashCode() : 0;
-        result = 31 * result + (productPrice != null ? productPrice.hashCode() : 0);
-        result = 31 * result + quantity;
         result = 31 * result + (totalCost != null ? totalCost.hashCode() : 0);
-        result = 31 * result + (currency != null ? currency.hashCode() : 0);
+        result = 31 * result + quantity;
         result = 31 * result + (discountCause != null ? discountCause.hashCode() : 0);
         result = 31 * result + (discount != null ? discount.hashCode() : 0);
         return result;
@@ -117,20 +92,11 @@ public class OfferItem {
 
     /**
      *
-     * @param item
      * @param delta
      *            acceptable percentage difference
      * @return
      */
     public boolean sameAs(OfferItem other, double delta) {
-        if (productPrice == null) {
-            if (other.productPrice != null) {
-                return false;
-            }
-        } else if (!productPrice.equals(other.productPrice)) {
-            return false;
-        }
-
         if (product == null) {
             if (other.product != null) {
                 return false;
@@ -145,12 +111,12 @@ public class OfferItem {
 
         BigDecimal max;
         BigDecimal min;
-        if (totalCost.compareTo(other.totalCost) > 0) {
-            max = totalCost;
-            min = other.totalCost;
+        if (totalCost.getProductPrice().compareTo(other.totalCost.getProductPrice()) > 0) {
+            max = totalCost.getProductPrice();
+            min = other.totalCost.getProductPrice();
         } else {
-            max = other.totalCost;
-            min = totalCost;
+            max = other.totalCost.getProductPrice();
+            min = totalCost.getProductPrice();
         }
 
         BigDecimal difference = max.subtract(min);
