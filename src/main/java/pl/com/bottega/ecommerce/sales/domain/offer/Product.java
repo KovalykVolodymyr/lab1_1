@@ -4,52 +4,57 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class Product {// product
-    private String productId;
-    private BigDecimal productPrice;
-    private String productName;
-    private Date productSnapshotDate;
-    private String productType;
+    private String id;
+    private BigDecimal price;
+    private String name;
+    private Date snapshotDate;
+    private String type;
 
-    public Product() {
+    public Product(String id, BigDecimal price, String name, Date snapshotDate, String type) {
+        this.id = id;
+        this.price = price;
+        this.name = name;
+        this.snapshotDate = snapshotDate;
+        this.type = type;
     }
 
     public String getProductId() {
-        return productId;
+        return id;
     }
 
     public BigDecimal getProductPrice() {
-        return productPrice;
+        return price;
     }
 
     public String getProductName() {
-        return productName;
+        return name;
     }
 
-    public Date getProductSnapshotDate() {
-        return productSnapshotDate;
+    public Date getSnapshotDate() {
+        return snapshotDate;
     }
 
     public String getProductType() {
-        return productType;
+        return type;
     }
 
-    public void setProductId(String productId) {
-        this.productId = productId;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setProductPrice(BigDecimal productPrice) {
-        this.productPrice = productPrice;
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setProductSnapshotDate(Date productSnapshotDate) {
-        this.productSnapshotDate = productSnapshotDate;
+    public void setSnapshotDate(Date snapshotDate) {
+        this.snapshotDate = snapshotDate;
     }
 
-    public void setProductType(String productType) {
-        this.productType = productType;
+    public void setType(String type) {
+        this.type = type;
     }
 }

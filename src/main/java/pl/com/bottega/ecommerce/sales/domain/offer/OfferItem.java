@@ -13,17 +13,15 @@
 package pl.com.bottega.ecommerce.sales.domain.offer;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 public class OfferItem {
 
+    private final Money money = new Money();
     private  Product product;
 
     private int quantity;
 
     private BigDecimal totalCost;
-
-    private String currency;
 
     // discount
     private String discountCause;
@@ -50,10 +48,6 @@ public class OfferItem {
 
     public BigDecimal getTotalCost() {
         return totalCost;
-    }
-
-    public String getTotalCostCurrency() {
-        return currency;
     }
 
     public BigDecimal getDiscount() {
