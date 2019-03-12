@@ -32,21 +32,16 @@ public class Offer {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
+        if ((obj == null) || (this.getClass() != obj.getClass())) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Offer other = (Offer) obj;
+
+        Offer offer = (Offer) obj;
         if (availableItems == null) {
-            if (other.availableItems != null) {
+            if (offer.availableItems != null) {
                 return false;
             }
-        } else if (!availableItems.equals(other.availableItems)) {
+        } else if (!availableItems.equals(offer.availableItems)) {
             return false;
         }
         return true;
