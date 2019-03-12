@@ -9,6 +9,16 @@ public class Product {
     private BigDecimal productPrice;
     private String productName;
 
+    public Money getMoney() {
+        return money;
+    }
+
+    public void setMoney(Money money) {
+        this.money = money;
+    }
+
+    private Money money;
+
     public String getProductId() {
         return productId;
     }
