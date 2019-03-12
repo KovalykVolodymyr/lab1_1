@@ -6,14 +6,12 @@ import java.util.Objects;
 
 public class OfferItem {
 
-    // product
     private Product product;
 
     private int quantity;
 
     private Money totalCost;
 
-    // discount
     private Discount discount;
 
     public OfferItem(Product product, int quantity) {
