@@ -35,6 +35,13 @@ public class OfferItem {
         this.discount = discount;
         this.product = product;
 
+        BigDecimal discountValue = new BigDecimal(0);
+        if (discount != null) {
+            discountValue = discountValue.subtract(discount.getDiscountValue());
+        }
+
+        this.totalCost = product.getPrice().multiply(new BigDecimal(quantity)).subtract(discountValue);
+
     }
 
     public BigDecimal getTotalCost() {
