@@ -6,33 +6,42 @@ import java.util.Objects;
 
 public class Product {
 
-    private String productId;
+    private String Id;
 
-    private String productName;
+    private Money Price;
 
-    private String productType;
+    private String Name;
 
-    private Date productSnapshotDate;
+    private Date SnapshotDate;
 
-    private BigDecimal price;
+    private String Type;
 
-    public Product(String productId, String productName, String productType, Date productSnapshotDate, BigDecimal price) {
-        this.productId = productId;
-        this.productName = productName;
-        this.productType = productType;
-        this.productSnapshotDate = productSnapshotDate;
-        this.price = price;
+    public Product(String Id, Money price, String Name, Date SnapshotDate, String Type) {
+        this.Id = Id;
+        this.Price = price;
+        this.Name = Name;
+        this.SnapshotDate = SnapshotDate;
+        this.Type = Type;
+
     }
 
-    public String getProductId() { return productId; }
+    public String getId() {
+        return Id;
+    }
 
-    public String getProductName() { return productName; }
+    public BigDecimal getPrice() {
+        return Price.getValue();
+    }
 
-    public Date getProductSnapshotDate() { return productSnapshotDate; }
+    public String getName() {
+        return Name;
+    }
 
-    public String getProductType() { return productType; }
+    public Date getSnapshotDate() {
+        return SnapshotDate;
+    }
 
-    public BigDecimal getPrice() { return price; }
+    public String getType() { return Type; }
 
     @Override public boolean equals(Object o) {
         if (this == o)
@@ -40,12 +49,11 @@ public class Product {
         if (o == null || getClass() != o.getClass())
             return false;
         Product product = (Product) o;
-        return Objects.equals(productId, product.productId) && Objects.equals(productName, product.productName) && Objects.equals(
-                productType, product.productType) && Objects.equals(productSnapshotDate, product.productSnapshotDate) && Objects.equals(
-                price, product.price);
+        return Objects.equals(Id, product.Id) && Objects.equals(Price, product.Price) && Objects.equals(Name, product.Name) &&
+               Objects.equals(SnapshotDate, product.SnapshotDate) && Objects.equals(Type, product.Type);
     }
 
     @Override public int hashCode() {
-        return Objects.hash(productId, productName, productType, productSnapshotDate, price);
+        return Objects.hash(Id, Price, Name, SnapshotDate, Type);
     }
 }
