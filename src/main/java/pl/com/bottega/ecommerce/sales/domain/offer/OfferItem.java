@@ -23,34 +23,27 @@ public class OfferItem {
 
     private int quantity;
 
-    private BigDecimal totalCost;
-
-    private String currency;
+    private Money totalCost;
 
     // discount
-    private String discountCause;
+    private Discount discount;
 
-    private BigDecimal discount;
-
-    public OfferItem(String productId, BigDecimal productPrice, String productName, Date productSnapshotDate,
-            String productType, int quantity) {
-        this(productId, productPrice, productName, productSnapshotDate, productType, quantity, null, null);
+    public OfferItem(Product product, int quantity) {
+        this(product, quantity, null);
     }
 
-    public OfferItem(String productId, BigDecimal productPrice, String productName, Date productSnapshotDate,
-            String productType, int quantity, BigDecimal discount, String discountCause) {
-        this.product=new Product(productId,productPrice,productName,productSnapshotDate,productType);
+    public OfferItem(Product product, int quantity, Discount discount) {
+        this.product=product;
 
         this.quantity = quantity;
-        this.discount = discount;
-        this.discountCause = discountCause;
+        this.discount=discount;
 
         BigDecimal discountValue = new BigDecimal(0);
         if (discount != null) {
-            discountValue = discountValue.subtract(discount);
+            discountValue = discountValue.subtract(discount.getValue().getValue());
         }
 
-        this.totalCost = productPrice.multiply(new BigDecimal(quantity)).subtract(discountValue);
+        this.totalCost = new Money(product.getPrice().getValue().multiply(new BigDecimal(quantity)).subtract(discountValue),product.getPrice().getCurrency());
     }
 
     public String getProductId() {
@@ -58,7 +51,7 @@ public class OfferItem {
     }
 
     public BigDecimal getProductPrice() {
-        return product.getPrice();
+        return product.getPrice().getValue();
     }
 
     public String getProductName() {
@@ -74,27 +67,23 @@ public class OfferItem {
     }
 
     public BigDecimal getTotalCost() {
-        return totalCost;
+        return totalCost.getValue();
     }
 
     public String getTotalCostCurrency() {
-        return currency;
+        return totalCost.getCurrency();
     }
 
     public BigDecimal getDiscount() {
-        return discount;
+        return discount.getValue().getValue();
     }
 
     public String getDiscountCause() {
-        return discountCause;
+        return discount.getCause();
     }
 
     public int getQuantity() {
         return quantity;
-    }
-
-    @Override public int hashCode() {
-        return Objects.hash(product, quantity, totalCost, currency, discountCause, discount);
     }
 
     @Override public boolean equals(Object o) {
@@ -104,8 +93,11 @@ public class OfferItem {
             return false;
         OfferItem offerItem = (OfferItem) o;
         return quantity == offerItem.quantity && Objects.equals(product, offerItem.product) &&
-                Objects.equals(totalCost, offerItem.totalCost) && Objects.equals(currency, offerItem.currency) &&
-                Objects.equals(discountCause, offerItem.discountCause) && Objects.equals(discount, offerItem.discount);
+                Objects.equals(totalCost, offerItem.totalCost) && Objects.equals(discount, offerItem.discount);
+    }
+
+    @Override public int hashCode() {
+        return Objects.hash(product, quantity, totalCost, discount);
     }
 
     /**
@@ -127,12 +119,12 @@ public class OfferItem {
 
         BigDecimal max;
         BigDecimal min;
-        if (totalCost.compareTo(other.totalCost) > 0) {
-            max = totalCost;
-            min = other.totalCost;
+        if (totalCost.getValue().compareTo(other.totalCost.getValue()) > 0) {
+            max = totalCost.getValue();
+            min = other.totalCost.getValue();
         } else {
-            max = other.totalCost;
-            min = totalCost;
+            max = other.totalCost.getValue();
+            min = totalCost.getValue();
         }
 
         BigDecimal difference = max.subtract(min);
