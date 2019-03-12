@@ -31,7 +31,7 @@ public class OfferItem {
 
     private BigDecimal discount;
 
-    public OfferItem(Product product, BigDecimal productPrice, Date productSnapshotDate, int quantity) {
+    public OfferItem(Product product, int quantity) {
         this(product, quantity, null, null);
     }
 
