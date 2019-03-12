@@ -21,41 +21,44 @@ public class OfferItem {
 
     private Money totalCost;
 
+    private Discount discount;
+
     private int quantity;
 
     // discount
-    private String discountCause;
 
-    private BigDecimal discount;
 
     public OfferItem(Product product, Money totalCost,
              int quantity) {
-        this(product, totalCost, quantity, null, null);
+        this(product, totalCost, quantity, null);
     }
 
     public OfferItem(Product product, Money totalCost,
-            int quantity, BigDecimal discount, String discountCause) {
+            int quantity, Discount discount) {
         this.product = product;
         this.totalCost = totalCost;
 
         this.quantity = quantity;
         this.discount = discount;
-        this.discountCause = discountCause;
 
         BigDecimal discountValue = new BigDecimal(0);
         if (discount != null) {
-            discountValue = discountValue.subtract(discount);
+            discountValue = discountValue.subtract(discount.getDiscount());
         }
 
         totalCost.setProductPrice(totalCost.getProductPrice().multiply(new BigDecimal(quantity)).subtract(discountValue));
     }
 
-    public BigDecimal getDiscount() {
-        return discount;
+    public Product getProduct() {
+        return product;
     }
 
-    public String getDiscountCause() {
-        return discountCause;
+    public Money getTotalCost() {
+        return totalCost;
+    }
+
+    public Discount getDiscount() {
+        return discount;
     }
 
     public int getQuantity() {
@@ -76,17 +79,14 @@ public class OfferItem {
             return false;
         if (!Objects.equals(totalCost, offerItem.totalCost))
             return false;
-        if (!Objects.equals(discountCause, offerItem.discountCause))
-            return false;
         return Objects.equals(discount, offerItem.discount);
     }
 
     @Override public int hashCode() {
         int result = product != null ? product.hashCode() : 0;
         result = 31 * result + (totalCost != null ? totalCost.hashCode() : 0);
-        result = 31 * result + quantity;
-        result = 31 * result + (discountCause != null ? discountCause.hashCode() : 0);
         result = 31 * result + (discount != null ? discount.hashCode() : 0);
+        result = 31 * result + quantity;
         return result;
     }
 
