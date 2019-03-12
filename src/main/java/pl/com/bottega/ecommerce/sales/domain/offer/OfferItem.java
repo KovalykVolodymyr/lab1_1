@@ -10,12 +10,9 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package pl.weeia.makz21.offer;
-
-import pl.com.bottega.ecommerce.sales.domain.offer.Product;
+package pl.com.bottega.ecommerce.sales.domain.offer;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.Objects;
 
 public class OfferItem {
@@ -25,6 +22,7 @@ public class OfferItem {
     private BigDecimal totalCost;
 
     private String currency;
+    private Money money;
 
     // discount
     private String discountCause;
@@ -33,8 +31,7 @@ public class OfferItem {
 
     private Product product;
 
-    public OfferItem(Product product,
-            int quantity) {
+    public OfferItem(Product product, int quantity) {
         this(product, quantity, null, null);
     }
 
@@ -51,7 +48,6 @@ public class OfferItem {
 
         this.totalCost = product.getPrice().multiply(new BigDecimal(quantity)).subtract(discountValue);
     }
-
 
     public BigDecimal getTotalCost() {
         return totalCost;
@@ -94,28 +90,28 @@ public class OfferItem {
      * @return
      */
     public boolean sameAs(OfferItem other, double delta) {
-        if (productName == null) {
-            if (other.productName != null) {
+        if (product.getName() == null) {
+            if (product.getName() != null) {
                 return false;
             }
-        } else if (!productName.equals(other.productName)) {
+        } else if (!product.getName().equals(other.product.getName())) {
             return false;
         }
-        if (productPrice == null) {
-            if (other.productPrice != null) {
+        if (product.getPrice() == null) {
+            if (other.product.getPrice() != null) {
                 return false;
             }
-        } else if (!productPrice.equals(other.productPrice)) {
+        } else if (!product.getPrice().equals(other.product.getPrice())) {
             return false;
         }
-        if (productId == null) {
-            if (other.productId != null) {
+        if (product.getId() == null) {
+            if (other.product.getId() != null) {
                 return false;
             }
-        } else if (!productId.equals(other.productId)) {
+        } else if (!product.getId().equals(other.product.getId())) {
             return false;
         }
-        if (productType != other.productType) {
+        if (product.getType() != other.product.getType()) {
             return false;
         }
 
