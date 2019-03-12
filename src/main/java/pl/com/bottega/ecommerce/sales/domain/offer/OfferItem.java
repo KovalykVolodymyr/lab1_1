@@ -92,11 +92,11 @@ public class OfferItem {
     }
 
     public BigDecimal getTotalCost() {
-        return this.money.value;
+        return this.money.getValue();
     }
 
     public String getTotalCostCurrency() {
-        return this.money.currency;
+        return this.money.getCurrency();
     }
 
     public BigDecimal getDiscount() {
