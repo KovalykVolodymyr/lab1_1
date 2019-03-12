@@ -1,9 +1,16 @@
 package pl.com.bottega.ecommerce.sales.domain.offer;
 
 import java.math.BigDecimal;
+import java.util.Objects;
 
 public class Money {
+    private BigDecimal value;
+    private String currency;
 
+    Money(BigDecimal value){
+        this.value = value;
+        this.currency = "$";
+    }
     public BigDecimal getValue() {
         return value;
     }
@@ -20,12 +27,16 @@ public class Money {
         this.currency = currency;
     }
 
-    private BigDecimal value;
-    private String currency;
-
-    Money(BigDecimal value){
-        this.value = value;
-        this.currency = "$";
+    @Override public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Money money = (Money) o;
+        return Objects.equals(value, money.value) && Objects.equals(currency, money.currency);
     }
 
+    @Override public int hashCode() {
+        return Objects.hash(value, currency);
+    }
 }
