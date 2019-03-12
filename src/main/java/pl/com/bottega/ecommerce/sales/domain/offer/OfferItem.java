@@ -18,7 +18,6 @@ import java.util.Objects;
 
 public class OfferItem {
 
-    // product
     private Product product;
 
     private int quantity;
@@ -97,7 +96,7 @@ public class OfferItem {
 
     /**
      *
-     * @param // item
+     * @param other
      * @param delta
      *            acceptable percentage difference
      * @return

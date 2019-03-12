@@ -2,6 +2,7 @@ package pl.com.bottega.ecommerce.sales.domain.offer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Offer {
 
@@ -22,29 +23,17 @@ public class Offer {
         return unavailableItems;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (availableItems == null ? 0 : availableItems.hashCode());
-        return result;
+    @Override public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Offer offer = (Offer) o;
+        return Objects.equals(availableItems, offer.availableItems) && Objects.equals(unavailableItems, offer.unavailableItems);
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if ((obj == null) || (this.getClass() != obj.getClass())) {
-            return false;
-        }
-
-        Offer offer = (Offer) obj;
-        if (availableItems == null) {
-            if (offer.availableItems != null) {
-                return false;
-            }
-        } else if (!availableItems.equals(offer.availableItems)) {
-            return false;
-        }
-        return true;
+    @Override public int hashCode() {
+        return Objects.hash(availableItems, unavailableItems);
     }
 
     /**
