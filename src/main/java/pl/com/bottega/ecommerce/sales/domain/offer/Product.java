@@ -15,6 +15,14 @@ public class Product {
 
     private String productType;
 
+    public Product(String id, BigDecimal price, String name, Date snapshotDate, String productType) {
+        this.id = id;
+        this.price = price;
+        this.name = name;
+        this.snapshotDate = snapshotDate;
+        this.productType = productType;
+    }
+
     public String getId() {
         return id;
     }
