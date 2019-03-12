@@ -37,6 +37,21 @@ public class Product {
         return productType;
     }
 
+    @Override public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Product product = (Product) o;
+        return Objects.equals(productId, product.productId) && Objects.equals(productName, product.productName) && Objects.equals(money,
+                product.money) && Objects.equals(productSnapshotDate, product.productSnapshotDate) && Objects.equals(productType,
+                product.productType);
+    }
+
+    @Override public int hashCode() {
+        return Objects.hash(productId, productName, money, productSnapshotDate, productType);
+    }
+
     public Product(String productId, BigDecimal productPrice, String productName, Date productSnapshotDate, String productType) {
         this.productId = productId;
         this.money = new Money(productPrice, "");
