@@ -4,23 +4,30 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 public class Discount {
-    private String discountCause;
-    private BigDecimal discount;
-    private Money money;
+
+    public String getDiscountCause() {
+        return discountCause;
+    }
 
     @Override public boolean equals(Object o) {
         if (this == o)
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        Discount discount1 = (Discount) o;
-        return Objects.equals(discountCause, discount1.discountCause) && Objects.equals(discount, discount1.discount) && Objects.equals(
-                money, discount1.money);
+        Discount discount = (Discount) o;
+        return Objects.equals(discountCause, discount.discountCause) && Objects.equals(money, discount.money);
     }
 
     @Override public int hashCode() {
-        return Objects.hash(discountCause, discount, money);
+        return Objects.hash(discountCause, money);
     }
+
+    public void setDiscountCause(String discountCause) {
+        this.discountCause = discountCause;
+    }
+
+    private String discountCause;
+    private Money money;
 
     public Money getMoney() {
         return money;
@@ -33,23 +40,8 @@ public class Discount {
 
     public Discount(String discountCause, BigDecimal discount) {
         this.discountCause = discountCause;
-        this.discount = discount;
+        this.money = new Money(discount);
     }
 
-    public String getDiscountCause() {
-        return discountCause;
-    }
-
-    public void setDiscountCause(String discountCause) {
-        this.discountCause = discountCause;
-    }
-
-    public BigDecimal getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(BigDecimal discount) {
-        this.discount = discount;
-    }
 
 }
