@@ -7,18 +7,18 @@ public class Discount {
     // discount
     private String discountCause;
 
-    private BigDecimal discount;
+    private Money money;
 
     public String getDiscountCause() {
         return discountCause;
     }
 
-    public BigDecimal getDiscount() {
-        return discount;
+    public Money getMoney() {
+        return money;
     }
 
     public Discount(String discountCause, BigDecimal discount) {
         this.discountCause = discountCause;
-        this.discount = discount;
+        this.money = new Money(discount, "");
     }
 }

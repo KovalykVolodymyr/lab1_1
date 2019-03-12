@@ -9,9 +9,13 @@ public class Product {
     // product
     private String productId;
 
-    private BigDecimal productPrice;
-
     private String productName;
+
+    private Money money;
+
+    public Money getMoney() {
+        return money;
+    }
 
     private Date productSnapshotDate;
 
@@ -19,10 +23,6 @@ public class Product {
 
     public String getProductId() {
         return productId;
-    }
-
-    public BigDecimal getProductPrice() {
-        return productPrice;
     }
 
     public String getProductName() {
@@ -37,24 +37,9 @@ public class Product {
         return productType;
     }
 
-    @Override public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        Product product = (Product) o;
-        return Objects.equals(productId, product.productId) && Objects.equals(productPrice, product.productPrice) && Objects.equals(
-                productName, product.productName) && Objects.equals(productSnapshotDate, product.productSnapshotDate) && Objects.equals(
-                productType, product.productType);
-    }
-
-    @Override public int hashCode() {
-        return Objects.hash(productId, productPrice, productName, productSnapshotDate, productType);
-    }
-
     public Product(String productId, BigDecimal productPrice, String productName, Date productSnapshotDate, String productType) {
         this.productId = productId;
-        this.productPrice = productPrice;
+        this.money = new Money(productPrice, "");
         this.productName = productName;
         this.productSnapshotDate = productSnapshotDate;
         this.productType = productType;
