@@ -1,11 +1,13 @@
 package pl.com.bottega.ecommerce.sales.domain.offer;
 
+import java.math.BigDecimal;
+
 public class Money {
 
     private String currency;
-    private String value;
+    private BigDecimal value;
 
-    public Money(String currency, String value) {
+    public Money(String currency, BigDecimal value) {
         this.currency = currency;
         this.value = value;
     }
@@ -18,11 +20,11 @@ public class Money {
         this.currency = currency;
     }
 
-    public String getValue() {
+    public BigDecimal getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(BigDecimal value) {
         this.value = value;
     }
 }

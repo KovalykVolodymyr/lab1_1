@@ -19,10 +19,8 @@ public class OfferItem {
 
     private int quantity;
 
-    private BigDecimal totalCost;
+    private Money totalCost;
 
-    private String currency;
-    private Money money;
 
     // discount
     private String discountCause;
@@ -46,16 +44,10 @@ public class OfferItem {
             discountValue = discountValue.subtract(discount);
         }
 
-        this.totalCost = product.getPrice().multiply(new BigDecimal(quantity)).subtract(discountValue);
+        this.totalCost.setValue(product.getPrice().getValue().multiply(new BigDecimal(quantity)).subtract(discountValue));
     }
 
-    public BigDecimal getTotalCost() {
-        return totalCost;
-    }
 
-    public String getTotalCostCurrency() {
-        return currency;
-    }
 
     public BigDecimal getDiscount() {
         return discount;
@@ -69,19 +61,18 @@ public class OfferItem {
         return quantity;
     }
 
-    @Override public int hashCode() {
-        return Objects.hash(getQuantity(), getTotalCost(), currency, getDiscountCause(), getDiscount(), product);
-    }
-
     @Override public boolean equals(Object o) {
         if (this == o)
             return true;
         if (!(o instanceof OfferItem))
             return false;
         OfferItem offerItem = (OfferItem) o;
-        return getQuantity() == offerItem.getQuantity() && Objects.equals(getTotalCost(), offerItem.getTotalCost()) && Objects.equals(
-                currency, offerItem.currency) && Objects.equals(getDiscountCause(), offerItem.getDiscountCause()) && Objects.equals(
-                getDiscount(), offerItem.getDiscount()) && Objects.equals(product, offerItem.product);
+        return getQuantity() == offerItem.getQuantity() && totalCost.equals(offerItem.totalCost) && getDiscountCause().equals(
+                offerItem.getDiscountCause()) && getDiscount().equals(offerItem.getDiscount()) && product.equals(offerItem.product);
+    }
+
+    @Override public int hashCode() {
+        return Objects.hash(getQuantity(), totalCost, getDiscountCause(), getDiscount(), product);
     }
 
     /**
@@ -121,12 +112,12 @@ public class OfferItem {
 
         BigDecimal max;
         BigDecimal min;
-        if (totalCost.compareTo(other.totalCost) > 0) {
-            max = totalCost;
-            min = other.totalCost;
+        if (totalCost.getValue().compareTo(other.totalCost.getValue()) > 0) {
+            max = totalCost.getValue();
+            min = other.totalCost.getValue();
         } else {
-            max = other.totalCost;
-            min = totalCost;
+            max = other.totalCost.getValue();
+            min = totalCost.getValue();
         }
 
         BigDecimal difference = max.subtract(min);
