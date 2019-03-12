@@ -39,13 +39,13 @@ public class OfferItem {
 
     private BigDecimal discount;
 
-    public OfferItem(String productId, BigDecimal productPrice, String productName, Date productSnapshotDate,
-            String productType, int quantity) {
+    public OfferItem(String productId, BigDecimal productPrice, String productName, Date productSnapshotDate, String productType,
+            int quantity) {
         this(productId, productPrice, productName, productSnapshotDate, productType, quantity, null, null);
     }
 
-    public OfferItem(String productId, BigDecimal productPrice, String productName, Date productSnapshotDate,
-            String productType, int quantity, BigDecimal discount, String discountCause) {
+    public OfferItem(String productId, BigDecimal productPrice, String productName, Date productSnapshotDate, String productType,
+            int quantity, BigDecimal discount, String discountCause) {
         this.productId = productId;
         this.productPrice = productPrice;
         this.productName = productName;
@@ -104,8 +104,7 @@ public class OfferItem {
         return quantity;
     }
 
-    @Override
-    public int hashCode() {
+    @Override public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + (discount == null ? 0 : discount.hashCode());
@@ -118,8 +117,7 @@ public class OfferItem {
         return result;
     }
 
-    @Override
-    public boolean equals(Object obj) {
+    @Override public boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }
@@ -175,10 +173,8 @@ public class OfferItem {
     }
 
     /**
-     *
      * @param item
-     * @param delta
-     *            acceptable percentage difference
+     * @param delta acceptable percentage difference
      * @return
      */
     public boolean sameAs(OfferItem other, double delta) {
