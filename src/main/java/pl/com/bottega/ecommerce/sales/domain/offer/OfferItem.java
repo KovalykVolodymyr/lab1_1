@@ -49,9 +49,7 @@ public class OfferItem {
         return product.getProductId();
     }
 
-    public BigDecimal getProductPrice() {
-        return product.getProductPrice();
-    }
+    public BigDecimal getProductPrice() { return product.getProductPrice(); }
 
     public String getProductName() {
         return product.getProductName();
@@ -65,13 +63,9 @@ public class OfferItem {
         return product.getProductType();
     }
 
-    public BigDecimal getTotalCost() {
-        return this.money.getValue();
-    }
+    public BigDecimal getTotalCost() { return this.money.getValue(); }
 
-    public String getTotalCostCurrency() {
-        return this.money.getCurrency();
-    }
+    public String getTotalCostCurrency() { return this.money.getCurrency(); }
 
     public BigDecimal getDiscount() {
         return discount.getDiscount();
@@ -109,32 +103,7 @@ public class OfferItem {
      * @return
      */
     public boolean sameAs(OfferItem other, double delta) {
-        if (product.getProductName() == null) {
-            if (product.getProductName() != null) {
-                return false;
-            }
-        } else if (!product.getProductName().equals(other.product.getProductName())) {
-            return false;
-        }
-        if (product.getProductPrice() == null) {
-            if (other.product.getProductPrice() != null) {
-                return false;
-            }
-        } else if (!product.getProductPrice().equals(other.product.getProductPrice())) {
-            return false;
-        }
-        if (product.getProductId() == null) {
-            if (other.product.getProductId() != null) {
-                return false;
-            }
-        } else if (!product.getProductId().equals(other.product.getProductId())) {
-            return false;
-        }
-        if (product.getProductType() != other.product.getProductType()) {
-            return false;
-        }
-
-        if (quantity != other.quantity) {
+        if (!product.equals(other)) {
             return false;
         }
 
