@@ -25,21 +25,19 @@ public class OfferItem {
 
     private String currency;
 
-    // discount
-    private String discountCause;
 
-    private BigDecimal discount;
 
 
 
     private Product products;
+    private Discount discounts;
 
-    public OfferItem(int quantity, Product products, BigDecimal discount, String discountCause)
+    public OfferItem(int quantity, Product products, Discount discounts, BigDecimal discount, String discountCause)
     {
         this.quantity = quantity;
         this.products = products;
-        this.discount = discount;
-        this.discountCause = discountCause;
+        this.discounts = discounts;
+
 
     }
 
@@ -47,8 +45,8 @@ public class OfferItem {
 
 
         this.quantity = quantity;
-        this.discount = discount;
-        this.discountCause = discountCause;
+        this.discounts = discounts;
+
 
         BigDecimal discountValue = new BigDecimal(0);
         if (discount != null) {
@@ -60,6 +58,9 @@ public class OfferItem {
 
 
 
+    public Product getProducts(){
+        return products;
+    }
     public BigDecimal getTotalCost() {
         return totalCost;
     }
@@ -68,13 +69,6 @@ public class OfferItem {
         return currency;
     }
 
-    public BigDecimal getDiscount() {
-        return discount;
-    }
-
-    public String getDiscountCause() {
-        return discountCause;
-    }
 
     public int getQuantity() {
         return quantity;
@@ -84,7 +78,6 @@ public class OfferItem {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + (discount == null ? 0 : discount.hashCode());
 
         result = prime * result + quantity;
         result = prime * result + (totalCost == null ? 0 : totalCost.hashCode());
@@ -103,13 +96,6 @@ public class OfferItem {
             return false;
         }
         OfferItem other = (OfferItem) obj;
-        if (discount == null) {
-            if (other.discount != null) {
-                return false;
-            }
-        } else if (!discount.equals(other.discount)) {
-            return false;
-        }
 
         if (quantity != other.quantity) {
             return false;
