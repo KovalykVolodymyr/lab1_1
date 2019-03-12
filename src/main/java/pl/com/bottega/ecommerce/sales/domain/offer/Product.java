@@ -7,8 +7,7 @@ import java.util.Objects;
 public class Product {
 
     private String id;
-
-    private BigDecimal price;
+    private Money money;
 
     private String name;
 
@@ -16,9 +15,9 @@ public class Product {
 
     private String productType;
 
-    public Product(String id, BigDecimal price, String name, Date snapshotDate, String productType) {
+    public Product(String id, Money money, String name, Date snapshotDate, String productType) {
         this.id = id;
-        this.price = price;
+        this.money = money;
         this.name = name;
         this.snapshotDate = snapshotDate;
         this.productType = productType;
@@ -32,12 +31,12 @@ public class Product {
         this.id = id;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public Money getMoney() {
+        return money;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public void setMoney(Money money) {
+        this.money = money;
     }
 
     public String getName() {
@@ -70,12 +69,12 @@ public class Product {
         if (!(o instanceof Product))
             return false;
         Product product = (Product) o;
-        return Objects.equals(getId(), product.getId()) && Objects.equals(getPrice(), product.getPrice()) && Objects.equals(getName(),
+        return Objects.equals(getId(), product.getId()) && Objects.equals(getMoney(), product.getMoney()) && Objects.equals(getName(),
                 product.getName()) && Objects.equals(getSnapshotDate(), product.getSnapshotDate()) && Objects.equals(getProductType(),
                 product.getProductType());
     }
 
     @Override public int hashCode() {
-        return Objects.hash(getId(), getPrice(), getName(), getSnapshotDate(), getProductType());
+        return Objects.hash(getId(), getMoney(), getName(), getSnapshotDate(), getProductType());
     }
 }

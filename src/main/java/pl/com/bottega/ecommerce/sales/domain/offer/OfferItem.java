@@ -20,10 +20,10 @@ public class OfferItem {
     private Product product;
     private Discount discount;
     private int quantity;
-
+    private Money money;
     private BigDecimal totalCost;
 
-    private String currency;
+
 
     public OfferItem(Product product, int quantity) {
         this.product = product;
@@ -35,18 +35,14 @@ public class OfferItem {
         this.discount = discount;
 
         if (discount != null) {
-            discount.getValue();
+            discount.getMoney().getValue();
         }
 
-        this.totalCost = productPrice.multiply(new BigDecimal(quantity)).subtract(new BigDecimal(discount.getValue()));
+        this.totalCost = productPrice.multiply(new BigDecimal(quantity)).subtract(new BigDecimal(discount.getMoney().getValue()));
     }
 
     public BigDecimal getTotalCost() {
         return totalCost;
-    }
-
-    public String getTotalCostCurrency() {
-        return currency;
     }
 
     public int getQuantity() {

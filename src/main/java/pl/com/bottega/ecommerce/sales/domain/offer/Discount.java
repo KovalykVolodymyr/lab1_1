@@ -3,7 +3,16 @@ package pl.com.bottega.ecommerce.sales.domain.offer;
 public class Discount {
 
     private String cause;
-    private int value;
+
+    public Money getMoney() {
+        return money;
+    }
+
+    public void setMoney(Money money) {
+        this.money = money;
+    }
+
+    private Money money;
 
     public String getCause() {
         return cause;
@@ -13,11 +22,5 @@ public class Discount {
         this.cause = cause;
     }
 
-    public int getValue() {
-        return value;
-    }
 
-    public void setValue(int value) {
-        this.value = value;
-    }
 }
