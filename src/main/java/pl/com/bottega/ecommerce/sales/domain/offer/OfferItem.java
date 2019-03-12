@@ -1,15 +1,3 @@
-/*
- * Copyright 2011-2014 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
- * the License. You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
- * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
- * specific language governing permissions and limitations under the License.
- */
 package pl.com.bottega.ecommerce.sales.domain.offer;
 
 import java.math.BigDecimal;
@@ -26,27 +14,24 @@ public class OfferItem {
     private Money totalCost;
 
     // discount
-    private String discountCause;
-
-    private BigDecimal discount;
+    private Discount discount;
 
     public OfferItem(Product product, int quantity) {
-        this(product, quantity, null, null);
+        this(product, quantity, null);
     }
 
-    public OfferItem(Product product, int quantity, BigDecimal discount, String discountCause) {
+    public OfferItem(Product product, int quantity, Discount discount) {
         this.product=product;
 
         this.quantity = quantity;
-        this.discount = discount;
-        this.discountCause = discountCause;
+        this.discount=discount;
 
         BigDecimal discountValue = new BigDecimal(0);
         if (discount != null) {
-            discountValue = discountValue.subtract(discount);
+            discountValue = discountValue.subtract(discount.getValue().getValue());
         }
 
-        this.totalCost = new Money(product.getPrice().multiply(new BigDecimal(quantity)).subtract(discountValue),"PLN");
+        this.totalCost = new Money(product.getPrice().getValue().multiply(new BigDecimal(quantity)).subtract(discountValue),product.getPrice().getCurrency());
     }
 
     public String getProductId() {
@@ -54,7 +39,7 @@ public class OfferItem {
     }
 
     public BigDecimal getProductPrice() {
-        return product.getPrice();
+        return product.getPrice().getValue();
     }
 
     public String getProductName() {
@@ -78,11 +63,11 @@ public class OfferItem {
     }
 
     public BigDecimal getDiscount() {
-        return discount;
+        return discount.getValue().getValue();
     }
 
     public String getDiscountCause() {
-        return discountCause;
+        return discount.getCause();
     }
 
     public int getQuantity() {
@@ -96,12 +81,11 @@ public class OfferItem {
             return false;
         OfferItem offerItem = (OfferItem) o;
         return quantity == offerItem.quantity && Objects.equals(product, offerItem.product) &&
-               Objects.equals(totalCost, offerItem.totalCost) && Objects.equals(discountCause, offerItem.discountCause) &&
-               Objects.equals(discount, offerItem.discount);
+               Objects.equals(totalCost, offerItem.totalCost) && Objects.equals(discount, offerItem.discount);
     }
 
     @Override public int hashCode() {
-        return Objects.hash(product, quantity, totalCost, discountCause, discount);
+        return Objects.hash(product, quantity, totalCost, discount);
     }
 
     /**

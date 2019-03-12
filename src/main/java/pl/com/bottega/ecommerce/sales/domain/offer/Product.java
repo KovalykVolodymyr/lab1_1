@@ -1,6 +1,5 @@
 package pl.com.bottega.ecommerce.sales.domain.offer;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
 
@@ -29,8 +28,8 @@ public class Product {
         return Id;
     }
 
-    public BigDecimal getPrice() {
-        return Price.getValue();
+    public Money getPrice() {
+        return Price;
     }
 
     public String getName() {
@@ -41,7 +40,9 @@ public class Product {
         return SnapshotDate;
     }
 
-    public String getType() { return Type; }
+    public String getType() {
+        return Type;
+    }
 
     @Override public boolean equals(Object o) {
         if (this == o)
