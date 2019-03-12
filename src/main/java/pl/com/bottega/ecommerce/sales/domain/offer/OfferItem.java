@@ -18,34 +18,29 @@ import java.util.Date;
 public class OfferItem {
 
     private Product product;
+    private Discount discount;
     private int quantity;
 
     private BigDecimal totalCost;
 
     private String currency;
 
-    // discount
-    private String discountCause;
-
-    private BigDecimal discount;
-
     public OfferItem(Product product, int quantity) {
         this.product = product;
         this.quantity = quantity;
     }
 
-    public OfferItem( BigDecimal productPrice,int quantity, BigDecimal discount, String discountCause) {
+    public OfferItem(BigDecimal productPrice, int quantity, Discount discount) {
         this.quantity = quantity;
         this.discount = discount;
-        this.discountCause = discountCause;
 
-        BigDecimal discountValue = new BigDecimal(0);
         if (discount != null) {
-            discountValue = discountValue.subtract(discount);
+            discount.getValue();
         }
 
-        this.totalCost = productPrice.multiply(new BigDecimal(quantity)).subtract(discountValue);
+        this.totalCost = productPrice.multiply(new BigDecimal(quantity)).subtract(new BigDecimal(discount.getValue()));
     }
+
     public BigDecimal getTotalCost() {
         return totalCost;
     }
@@ -54,35 +49,22 @@ public class OfferItem {
         return currency;
     }
 
-    public BigDecimal getDiscount() {
-        return discount;
-    }
-
-    public String getDiscountCause() {
-        return discountCause;
-    }
-
     public int getQuantity() {
         return quantity;
     }
 
-
-
-
     /**
-     * @param item
      * @param delta acceptable percentage difference
      * @return
      */
     public boolean sameAs(OfferItem other, double delta) {
-        if(other.product.equals(other))
+        if (other.product.equals(other))
 
             if (quantity != other.quantity) {
-            return false;
-        }
+                return false;
+            }
 
-
-            BigDecimal max;
+        BigDecimal max;
         BigDecimal min;
         if (totalCost.compareTo(other.totalCost) > 0) {
             max = totalCost;
@@ -92,8 +74,8 @@ public class OfferItem {
             min = totalCost;
         }
 
-            BigDecimal difference = max.subtract(min);
-            BigDecimal acceptableDelta = max.multiply(BigDecimal.valueOf(delta / 100));
+        BigDecimal difference = max.subtract(min);
+        BigDecimal acceptableDelta = max.multiply(BigDecimal.valueOf(delta / 100));
 
         return acceptableDelta.compareTo(difference) > 0;
     }
