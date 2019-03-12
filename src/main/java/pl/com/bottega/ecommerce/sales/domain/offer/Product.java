@@ -7,13 +7,21 @@ public class Product {
 
     private String id;
 
-    private BigDecimal price;
+    private Money price;
 
     private String name;
 
     private Date snapshotDate;
 
     private String type;
+
+    public Product(String id, Money price, String name, Date snapshotDate, String type) {
+        this.id = id;
+        this.price = price;
+        this.name = name;
+        this.snapshotDate = snapshotDate;
+        this.type = type;
+    }
 
     public String getId() {
         return id;
@@ -23,11 +31,11 @@ public class Product {
         this.id = id;
     }
 
-    public BigDecimal getPrice() {
+    public Money getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Money price) {
         this.price = price;
     }
 
