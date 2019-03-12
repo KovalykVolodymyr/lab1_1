@@ -7,7 +7,7 @@ import java.util.Objects;
 public class Product {
     private String id;
 
-    private BigDecimal price;
+    private Money price;
 
     private String name;
 
@@ -17,7 +17,7 @@ public class Product {
 
     public Product(String id, BigDecimal price, String name, Date snapshotDate, String type){
         this.id = id;
-        this.price = price;
+        this.price = new Money(price,"PLN");
         this.name = name;
         this.snapshotDate = snapshotDate;
         this.type = type;
@@ -28,7 +28,7 @@ public class Product {
     }
 
     public BigDecimal getPrice() {
-        return price;
+        return price.getValue();
     }
 
     public String getName() {
