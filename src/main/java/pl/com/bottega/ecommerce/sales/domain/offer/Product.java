@@ -2,6 +2,7 @@ package pl.com.bottega.ecommerce.sales.domain.offer;
 
 
 import java.util.Date;
+import java.util.Objects;
 
 public class Product {
 
@@ -61,5 +62,22 @@ public class Product {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    @Override public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof Product))
+            return false;
+        Product product = (Product) o;
+        return getId().equals(product.getId())
+               && getPrice().equals(product.getPrice())
+               && getName().equals(product.getName())
+               && getSnapshotDate().equals(product.getSnapshotDate())
+               && getType().equals(product.getType());
+    }
+
+    @Override public int hashCode() {
+        return Objects.hash(getId(), getPrice(), getName(), getSnapshotDate(), getType());
     }
 }

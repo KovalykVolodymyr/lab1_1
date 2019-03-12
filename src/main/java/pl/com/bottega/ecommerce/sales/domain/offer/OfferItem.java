@@ -19,42 +19,27 @@ public class OfferItem {
 
     private int quantity;
 
-    private Money totalCost;
+    private Money totalCost = new Money();
 
-
-    // discount
-    private String discountCause;
-
-    private BigDecimal discount;
+    private Discount discount;
 
     private Product product;
 
     public OfferItem(Product product, int quantity) {
-        this(product, quantity, null, null);
+        this(product, quantity, null);
     }
 
-    public OfferItem(Product product, int quantity, BigDecimal discount, String discountCause) {
+    public OfferItem(Product product, int quantity, Discount discount) {
         this.product = product;
         this.quantity = quantity;
         this.discount = discount;
-        this.discountCause = discountCause;
 
         BigDecimal discountValue = new BigDecimal(0);
         if (discount != null) {
-            discountValue = discountValue.subtract(discount);
+            discountValue = discountValue.subtract(discount.getMoney().getValue());
         }
 
         this.totalCost.setValue(product.getPrice().getValue().multiply(new BigDecimal(quantity)).subtract(discountValue));
-    }
-
-
-
-    public BigDecimal getDiscount() {
-        return discount;
-    }
-
-    public String getDiscountCause() {
-        return discountCause;
     }
 
     public int getQuantity() {
@@ -67,12 +52,12 @@ public class OfferItem {
         if (!(o instanceof OfferItem))
             return false;
         OfferItem offerItem = (OfferItem) o;
-        return getQuantity() == offerItem.getQuantity() && totalCost.equals(offerItem.totalCost) && getDiscountCause().equals(
-                offerItem.getDiscountCause()) && getDiscount().equals(offerItem.getDiscount()) && product.equals(offerItem.product);
+        return getQuantity() == offerItem.getQuantity() && getTotalCost().equals(offerItem.getTotalCost()) && getDiscount().equals(
+                offerItem.getDiscount()) && getProduct().equals(offerItem.getProduct());
     }
 
     @Override public int hashCode() {
-        return Objects.hash(getQuantity(), totalCost, getDiscountCause(), getDiscount(), product);
+        return Objects.hash(getQuantity(), getTotalCost(), getDiscount(), getProduct());
     }
 
     /**
@@ -126,4 +111,15 @@ public class OfferItem {
         return acceptableDelta.compareTo(difference) > 0;
     }
 
+    public Money getTotalCost() {
+        return totalCost;
+    }
+
+    public Discount getDiscount() {
+        return discount;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
 }
