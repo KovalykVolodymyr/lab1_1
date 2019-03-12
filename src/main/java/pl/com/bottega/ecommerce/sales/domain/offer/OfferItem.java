@@ -61,6 +61,11 @@ public class OfferItem {
     public Product getProducts(){
         return products;
     }
+
+    public Discount getDiscounts(){
+        return discounts;
+    }
+
     public BigDecimal getTotalCost() {
         return totalCost;
     }
@@ -119,6 +124,16 @@ public class OfferItem {
      */
     public boolean sameAs(OfferItem other, double delta) {
 
+
+        if(!other.getProducts().equals(this.getProducts()))
+        {
+            return false;
+        }
+
+        if(!other.getDiscounts().equals(this.getDiscounts()))
+        {
+            return false;
+        }
 
         if (quantity != other.quantity) {
             return false;
