@@ -38,9 +38,10 @@ public class OfferItem {
 
     private Money money;
     // discount
-    private String discountCause;
-
-    private BigDecimal discount;
+    private Discount discount;
+//    private String discountCause;
+//
+//    private BigDecimal discount;
 
     public OfferItem(String productId, BigDecimal productPrice, String productName, Date productSnapshotDate,
             String productType, int quantity) {
@@ -57,13 +58,14 @@ public class OfferItem {
 //        this.productType = productType;
 
         this.quantity = quantity;
-        this.discount = discount;
-        this.discountCause = discountCause;
-
         BigDecimal discountValue = new BigDecimal(0);
-        if (discount != null) {
-            discountValue = discountValue.subtract(discount);
-        }
+        this.discount = new Discount(discountCause, discountValue.subtract(discount));
+        //        this.discount = discount;
+        //        this.discountCause = discountCause;
+//
+//        if (discount != null) {
+//            discountValue = discountValue.subtract(discount);
+//        }
 
         this.money = new Money(productPrice);
 //        this.totalCost = productPrice.multiply(new BigDecimal(quantity)).subtract(discountValue);
@@ -98,11 +100,11 @@ public class OfferItem {
     }
 
     public BigDecimal getDiscount() {
-        return discount;
+        return discount.getDiscount();
     }
 
     public String getDiscountCause() {
-        return discountCause;
+        return discount.getDiscountCause();
     }
 
     public int getQuantity() {
@@ -135,11 +137,11 @@ public class OfferItem {
             return false;
         }
         OfferItem other = (OfferItem) obj;
-        if (discount == null) {
-            if (other.discount != null) {
+        if (discount.getDiscount() == null) {
+            if (other.discount.getDiscount() != null) {
                 return false;
             }
-        } else if (!discount.equals(other.discount)) {
+        } else if (!discount.getDiscount().equals(other.discount.getDiscount())) {
             return false;
         }
 //        if (productName == null) {
