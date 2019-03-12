@@ -10,7 +10,9 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package pl.com.bottega.ecommerce.sales.domain.offer;
+package pl.weeia.makz21.offer;
+
+import pl.com.bottega.ecommerce.sales.domain.offer.Product;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -47,28 +49,9 @@ public class OfferItem {
             discountValue = discountValue.subtract(discount);
         }
 
-        this.totalCost = productPrice.multiply(new BigDecimal(quantity)).subtract(discountValue);
+        this.totalCost = product.getPrice().multiply(new BigDecimal(quantity)).subtract(discountValue);
     }
 
-    public String getProductId() {
-        return productId;
-    }
-
-    public BigDecimal getProductPrice() {
-        return productPrice;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public Date getProductSnapshotDate() {
-        return productSnapshotDate;
-    }
-
-    public String getProductType() {
-        return productType;
-    }
 
     public BigDecimal getTotalCost() {
         return totalCost;
