@@ -5,14 +5,14 @@ import java.util.Date;
 
 public class Product {// product
     private String id;
-    private BigDecimal price;
     private String name;
     private Date snapshotDate;
     private String type;
+    private Money money;
 
-    public Product(String id, BigDecimal price, String name, Date snapshotDate, String type) {
+    public Product(String id, String name, Date snapshotDate, String type, Money money) {
         this.id = id;
-        this.price = price;
+        this.money = money;
         this.name = name;
         this.snapshotDate = snapshotDate;
         this.type = type;
@@ -22,9 +22,6 @@ public class Product {// product
         return id;
     }
 
-    public BigDecimal getProductPrice() {
-        return price;
-    }
 
     public String getProductName() {
         return name;
@@ -42,8 +39,12 @@ public class Product {// product
         this.id = id;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
+    public Money getMoney() {
+        return money;
+    }
+
+    public void setMoney(Money money) {
+        this.money = money;
     }
 
     public void setName(String name) {

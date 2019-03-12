@@ -16,46 +16,32 @@ import java.math.BigDecimal;
 
 public class OfferItem {
 
-    private final Money money = new Money();
+    private Discount discount;
+
+    private  Money money;
+
     private  Product product;
 
     private int quantity;
 
     private BigDecimal totalCost;
 
-    // discount
-    private String discountCause;
-
-    private BigDecimal discount;
-
-    public OfferItem(Product product, int quantity) {
-        this(product, quantity, null, null);
-    }
-
-    public OfferItem(Product product, int quantity, BigDecimal discount, String discountCause) {
+    public OfferItem(Product product, int quantity, Discount discount, Money money) {
         this.product = product;
         this.quantity = quantity;
         this.discount = discount;
-        this.discountCause = discountCause;
+        this.money = money;
 
         BigDecimal discountValue = new BigDecimal(0);
         if (discount != null) {
-            discountValue = discountValue.subtract(discount);
+            discountValue = discountValue.subtract(discount.getMoney().getValue());
         }
 
-        this.totalCost = product.getProductPrice().multiply(new BigDecimal(quantity)).subtract(discountValue);
+        this.totalCost = product.getMoney().getValue().multiply(new BigDecimal(quantity)).subtract(discountValue);
     }
 
     public BigDecimal getTotalCost() {
         return totalCost;
-    }
-
-    public BigDecimal getDiscount() {
-        return discount;
-    }
-
-    public String getDiscountCause() {
-        return discountCause;
     }
 
     public int getQuantity() {
@@ -66,9 +52,9 @@ public class OfferItem {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + (discount == null ? 0 : discount.hashCode());
+        result = prime * result + (discount.getMoney().getValue() == null ? 0 : discount.getMoney().getValue().hashCode());
         result = prime * result + (product.getProductName() == null ? 0 : product.getProductName().hashCode());
-        result = prime * result + (product.getProductPrice() == null ? 0 : product.getProductPrice().hashCode());
+        result = prime * result + (product.getMoney().getValue() == null ? 0 : product.getMoney().getValue().hashCode());
         result = prime * result + (product.getProductId() == null ? 0 : product.getProductId().hashCode());
         result = prime * result + (product.getProductType() == null ? 0 : product.getProductType().hashCode());
         result = prime * result + quantity;
@@ -88,11 +74,11 @@ public class OfferItem {
             return false;
         }
         OfferItem other = (OfferItem) obj;
-        if (discount == null) {
-            if (other.discount != null) {
+        if (discount.getMoney().getValue() == null) {
+            if (other.discount.getMoney().getValue() != null) {
                 return false;
             }
-        } else if (!discount.equals(other.discount)) {
+        } else if (!discount.getMoney().getValue().equals(other.discount.getMoney().getValue())) {
             return false;
         }
         if (product.getProductName() == null) {
@@ -102,11 +88,11 @@ public class OfferItem {
         } else if (!product.getProductName().equals(other.product.getProductName())) {
             return false;
         }
-        if (product.getProductPrice() == null) {
-            if (other.product.getProductPrice() != null) {
+        if (product.getMoney().getValue() == null) {
+            if (other.product.getMoney().getValue() != null) {
                 return false;
             }
-        } else if (!product.getProductPrice().equals(other.product.getProductPrice())) {
+        } else if (!product.getMoney().getValue().equals(other.product.getMoney().getValue())) {
             return false;
         }
         if (product.getProductId() == null) {
@@ -134,7 +120,7 @@ public class OfferItem {
 
     /**
      *
-     * @param item
+     * @param other
      * @param delta
      *            acceptable percentage difference
      * @return
@@ -147,11 +133,11 @@ public class OfferItem {
         } else if (!product.getProductName().equals(other.product.getProductName())) {
             return false;
         }
-        if (product.getProductPrice() == null) {
-            if (other.product.getProductPrice() != null) {
+        if (product.getMoney().getValue() == null) {
+            if (other.product.getMoney().getValue() != null) {
                 return false;
             }
-        } else if (!product.getProductPrice().equals(other.product.getProductPrice())) {
+        } else if (!product.getMoney().getValue().equals(other.product.getMoney().getValue())) {
             return false;
         }
         if (product.getProductId() == null) {
