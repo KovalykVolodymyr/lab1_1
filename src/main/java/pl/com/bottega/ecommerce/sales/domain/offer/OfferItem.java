@@ -69,14 +69,22 @@ public class OfferItem {
         this.discount = discount;
     }
 
+    public Money getTotalCost() {
+        return totalCost;
+    }
+
+    public void setTotalCost(Money totalCost) {
+        this.totalCost = totalCost;
+    }
+
     @Override public boolean equals(Object o) {
         if (this == o)
             return true;
-        if (o == null || getClass() != o.getClass())
+        if (!(o instanceof OfferItem))
             return false;
         OfferItem offerItem = (OfferItem) o;
-        return getQuantity() == offerItem.getQuantity() && getProduct().equals(offerItem.getProduct()) && getDiscount().equals(
-                offerItem.getDiscount()) && getTotalCost().equals(offerItem.getTotalCost());
+        return getQuantity() == offerItem.getQuantity() && Objects.equals(getProduct(), offerItem.getProduct()) && Objects.equals(
+                getDiscount(), offerItem.getDiscount()) && Objects.equals(getTotalCost(), offerItem.getTotalCost());
     }
 
     @Override public int hashCode() {
@@ -89,35 +97,17 @@ public class OfferItem {
      * @return
      */
     public boolean sameAs(OfferItem other, double delta) {
-        if (product.getName() == null) {
-            if (other.product.getName() != null) {
-                return false;
-            }
-        } else if (!product.getName().equals(other.product.getName())) {
+        if (!product.equals(other.product))
             return false;
-        }
-        if (product.getPrice() == null) {
-            if (other.product.getPrice() != null) {
-                return false;
-            }
-        } else if (!product.getPrice().equals(other.product.getPrice())) {
-            return false;
-        }
-        if (product.getId() == null) {
-            if (other.product.getId() != null) {
-                return false;
-            }
-        } else if (!product.getId().equals(other.product.getId())) {
-            return false;
-        }
-        if (product.getType() != other.product.getType()) {
-            return false;
-        }
 
         if (quantity != other.quantity) {
             return false;
         }
 
+        return sameDeltaAs(other, delta);
+    }
+
+    private boolean sameDeltaAs(OfferItem other, double delta) {
         BigDecimal max;
         BigDecimal min;
         if (totalCost.getValue().compareTo(other.totalCost.getValue()) > 0) {
@@ -132,13 +122,5 @@ public class OfferItem {
         BigDecimal acceptableDelta = max.multiply(BigDecimal.valueOf(delta / 100));
 
         return acceptableDelta.compareTo(difference) > 0;
-    }
-
-    public Money getTotalCost() {
-        return totalCost;
-    }
-
-    public void setTotalCost(Money totalCost) {
-        this.totalCost = totalCost;
     }
 }
