@@ -9,6 +9,8 @@ public class Discount {
 
     private BigDecimal value;
 
+    public Money money;
+
     public Discount(String cause, BigDecimal value){
 
         this.cause = cause;

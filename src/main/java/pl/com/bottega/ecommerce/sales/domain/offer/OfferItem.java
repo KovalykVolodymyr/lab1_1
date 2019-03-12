@@ -25,18 +25,18 @@ public class OfferItem {
 
     private String currency;
 
-
-
-
-
     private Product products;
+
     private Discount discounts;
 
-    public OfferItem(int quantity, Product products, Discount discounts, BigDecimal discount, String discountCause)
+    private Money money;
+
+    public OfferItem(int quantity, Product products, Discount discounts, Money money)
     {
         this.quantity = quantity;
         this.products = products;
         this.discounts = discounts;
+        this.money = money;
 
 
     }
