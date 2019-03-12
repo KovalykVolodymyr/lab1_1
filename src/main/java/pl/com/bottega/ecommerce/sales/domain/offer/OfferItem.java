@@ -64,7 +64,7 @@ public class OfferItem {
     public Money getTotalCost() {
         return totalCost;
     }
-    
+
     public int getQuantity() {
         return quantity;
     }
