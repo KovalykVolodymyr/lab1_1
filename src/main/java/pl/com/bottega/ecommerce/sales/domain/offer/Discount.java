@@ -7,11 +7,11 @@ public class Discount {
 
     private String cause;
 
-    private BigDecimal value;
 
-    public Money money;
+    public Money value;
 
-    public Discount(String cause, BigDecimal value){
+
+    public Discount(String cause, Money value){
 
         this.cause = cause;
         this.value = value;
@@ -21,17 +21,17 @@ public class Discount {
         return cause;
     }
 
-    public BigDecimal getValue() {
+    public Money getValue() {
         return value;
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (value == null ? 0 : value.hashCode());
 
-        return result;
+
+        return Objects.hash(value, cause);
+
+
     }
 
     @Override public boolean equals(Object o) {
