@@ -15,9 +15,9 @@ public class Product {
 
     private String type;
 
-    public Product(String id, BigDecimal price, String name, Date snapshotDate, String type){
+    public Product(String id, Money price, String name, Date snapshotDate, String type){
         this.id = id;
-        this.price = new Money(price,"PLN");
+        this.price = price;
         this.name = name;
         this.snapshotDate = snapshotDate;
         this.type = type;
@@ -27,8 +27,8 @@ public class Product {
         return id;
     }
 
-    public BigDecimal getPrice() {
-        return price.getValue();
+    public Money getPrice() {
+        return price;
     }
 
     public String getName() {
