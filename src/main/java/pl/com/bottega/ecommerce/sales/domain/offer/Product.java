@@ -7,7 +7,8 @@ import java.util.Objects;
 public class Product {
 
     private String id;
-    private Money money;
+
+    private Money price;
 
     private String name;
 
@@ -15,9 +16,9 @@ public class Product {
 
     private String productType;
 
-    public Product(String id, Money money, String name, Date snapshotDate, String productType) {
+    public Product(String id, Money price, String name, Date snapshotDate, String productType) {
         this.id = id;
-        this.money = money;
+        this.price = price;
         this.name = name;
         this.snapshotDate = snapshotDate;
         this.productType = productType;
@@ -29,14 +30,6 @@ public class Product {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public Money getMoney() {
-        return money;
-    }
-
-    public void setMoney(Money money) {
-        this.money = money;
     }
 
     public String getName() {
@@ -63,18 +56,26 @@ public class Product {
         this.productType = productType;
     }
 
+    public Money getPrice() {
+        return price;
+    }
+
+    public void setPrice(Money price) {
+        this.price = price;
+    }
+
     @Override public boolean equals(Object o) {
         if (this == o)
             return true;
         if (!(o instanceof Product))
             return false;
         Product product = (Product) o;
-        return Objects.equals(getId(), product.getId()) && Objects.equals(getMoney(), product.getMoney()) && Objects.equals(getName(),
+        return Objects.equals(getId(), product.getId()) && Objects.equals(getPrice(), product.getPrice()) && Objects.equals(getName(),
                 product.getName()) && Objects.equals(getSnapshotDate(), product.getSnapshotDate()) && Objects.equals(getProductType(),
                 product.getProductType());
     }
 
     @Override public int hashCode() {
-        return Objects.hash(getId(), getMoney(), getName(), getSnapshotDate(), getProductType());
+        return Objects.hash(getId(), getPrice(), getName(), getSnapshotDate(), getProductType());
     }
 }

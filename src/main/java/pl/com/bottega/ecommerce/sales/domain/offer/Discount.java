@@ -4,6 +4,8 @@ public class Discount {
 
     private String cause;
 
+    private Money money;
+
     public Money getMoney() {
         return money;
     }
@@ -12,8 +14,6 @@ public class Discount {
         this.money = money;
     }
 
-    private Money money;
-
     public String getCause() {
         return cause;
     }
@@ -21,6 +21,5 @@ public class Discount {
     public void setCause(String cause) {
         this.cause = cause;
     }
-
 
 }
