@@ -5,8 +5,28 @@ import java.util.Objects;
 
 public class Discount {
 
+    private String discountCause;
+    private Money money;
+
+    public Discount(String discountCause, BigDecimal discount) {
+        this.discountCause = discountCause;
+        this.money = new Money(discount);
+    }
+
     public String getDiscountCause() {
         return discountCause;
+    }
+
+    public void setDiscountCause(String discountCause) {
+        this.discountCause = discountCause;
+    }
+
+    public Money getMoney() {
+        return money;
+    }
+
+    public void setMoney(Money money) {
+        this.money = money;
     }
 
     @Override public boolean equals(Object o) {
@@ -21,27 +41,5 @@ public class Discount {
     @Override public int hashCode() {
         return Objects.hash(discountCause, money);
     }
-
-    public void setDiscountCause(String discountCause) {
-        this.discountCause = discountCause;
-    }
-
-    private String discountCause;
-    private Money money;
-
-    public Money getMoney() {
-        return money;
-    }
-
-    public void setMoney(Money money) {
-        this.money = money;
-    }
-
-
-    public Discount(String discountCause, BigDecimal discount) {
-        this.discountCause = discountCause;
-        this.money = new Money(discount);
-    }
-
 
 }

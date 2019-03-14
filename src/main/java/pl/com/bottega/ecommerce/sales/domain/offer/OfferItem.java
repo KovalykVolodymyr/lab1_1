@@ -19,18 +19,9 @@ import java.util.Objects;
 public class OfferItem {
 
     private Product product;
-
     private int quantity;
-
     private Money money;
-
     private Discount discount;
-
-
-    public OfferItem(String productId, BigDecimal productPrice, String productName, Date productSnapshotDate,
-            String productType, int quantity) {
-        this(productId, productPrice, productName, productSnapshotDate, productType, quantity, null, null);
-    }
 
     public OfferItem(String productId, BigDecimal productPrice, String productName, Date productSnapshotDate,
             String productType, int quantity, BigDecimal discount, String discountCause) {
@@ -76,6 +67,11 @@ public class OfferItem {
 
     public int getQuantity() {
         return quantity;
+    }
+
+    public OfferItem(String productId, BigDecimal productPrice, String productName, Date productSnapshotDate,
+            String productType, int quantity) {
+        this(productId, productPrice, productName, productSnapshotDate, productType, quantity, null, null);
     }
 
     @Override public boolean equals(Object o) {

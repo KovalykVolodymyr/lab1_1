@@ -9,31 +9,25 @@ public class Product {
     private String productId;
     private BigDecimal productPrice;
     private String productName;
+    private Money money;
+    private Date productSnapshotDate;
+    private String productType;
+
+    public Product(String productId, BigDecimal productPrice, String productName, Date productSnapshotDate, String productType){
+        this.productId = productId;
+        this.productPrice = productPrice;
+        this.productName = productName;
+        this.productSnapshotDate = productSnapshotDate;
+        this.productType = productType;
+    }
 
     public Money getMoney() {
         return money;
     }
 
-    @Override public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        Product product = (Product) o;
-        return Objects.equals(productId, product.productId) && Objects.equals(productPrice, product.productPrice) && Objects.equals(
-                productName, product.productName) && Objects.equals(money, product.money) && Objects.equals(productSnapshotDate,
-                product.productSnapshotDate) && Objects.equals(productType, product.productType);
-    }
-
-    @Override public int hashCode() {
-        return Objects.hash(productId, productPrice, productName, money, productSnapshotDate, productType);
-    }
-
     public void setMoney(Money money) {
         this.money = money;
     }
-
-    private Money money;
 
     public String getProductId() {
         return productId;
@@ -55,14 +49,19 @@ public class Product {
         return productType;
     }
 
-    private Date productSnapshotDate;
-    private String productType;
-
-    Product(String productId, BigDecimal productPrice, String productName, Date productSnapshotDate, String productType){
-        this.productId = productId;
-        this.productPrice = productPrice;
-        this.productName = productName;
-        this.productSnapshotDate = productSnapshotDate;
-        this.productType = productType;
+    @Override public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Product product = (Product) o;
+        return Objects.equals(productId, product.productId) && Objects.equals(productPrice, product.productPrice) && Objects.equals(
+                productName, product.productName) && Objects.equals(money, product.money) && Objects.equals(productSnapshotDate,
+                product.productSnapshotDate) && Objects.equals(productType, product.productType);
     }
+
+    @Override public int hashCode() {
+        return Objects.hash(productId, productPrice, productName, money, productSnapshotDate, productType);
+    }
+
 }
