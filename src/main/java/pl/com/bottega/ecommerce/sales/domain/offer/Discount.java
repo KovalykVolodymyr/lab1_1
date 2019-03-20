@@ -5,9 +5,9 @@ import java.util.Objects;
 public class Discount {
     private String discountCause;
 
-    private BigDecimal value;
+    private Money value;
 
-    public Discount(BigDecimal value, String discountCause) {
+    public Discount(Money value, String discountCause) {
         this.value = value;
         this.discountCause = discountCause;
     }
@@ -26,7 +26,7 @@ public class Discount {
         return Objects.hash(discountCause, value);
     }
 
-    public BigDecimal getValue() {
+    public Money getValue() {
         return value;
     }
 
